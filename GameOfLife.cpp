@@ -43,8 +43,13 @@ boolean GameOfLife::readCellFromByte(int x, byte world_byte) {
 }
 
 
-byte GameOfLife::writeCellByte(int x, boolean value, boolean original_byte) {
+byte GameOfLife::writeCellByte(int x, boolean value, byte original_byte) {
+    int modulo_x = x % 8;
     byte result = 1;
-
+    int int_val = 0;
+    if (value) {
+        int_val = 1;
+    }
+    result ^= (-int_val ^ original_byte) & (1 << (8 - modulo_x));
     return result;
 }
