@@ -22,6 +22,9 @@ class GameOfLife {
 
         void initWorld();
         boolean checkCell(int x, int y);
+        int findIndexInWorld(int x, int y);
+        boolean readCellFromByte(int x, byte world_byte);
+        byte writeCellByte(int x, boolean value, boolean original_byte);
 
 };
 
