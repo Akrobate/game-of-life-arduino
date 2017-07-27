@@ -1,7 +1,8 @@
 #include "GameOfLife.h"
+#include "U8glib/U8glib.h"
 
 GameOfLife::GameOfLife() {
-
+    //int b = a;
 }
 
 
@@ -10,16 +11,24 @@ int GameOfLife::test() {
 }
 
 
-void GameOfLife::initWorld() {
+void GameOfLife::initWorld(int value) {
     for (int i = 0; i < world_size; i++) {
-        world[i] = random(255);
+        // world[i] = random(255);
+        world[i] = value;
     }
 }
 
 
-boolean GameOfLife::checkCell(int x, int y) {
-    boolean a = true;
-    return a;
+boolean GameOfLife::checkCell(int x, int y, byte world_param[]) {
+    int world_index = findIndexInWorld(x,y);
+    boolean result = readCellFromByte(x, world_param[world_index]);
+    return result;
+}
+
+
+void GameOfLife::setCell(int x, int y, boolean value, byte world_param[]) {
+    int world_index = findIndexInWorld(x,y);
+    world_param[world_index] = writeCellByte(x, value, world_param[world_index]);
 }
 
 
@@ -53,3 +62,16 @@ byte GameOfLife::writeCellByte(int x, boolean value, byte original_byte) {
     result ^= (-int_val ^ original_byte) & (1 << (8 - modulo_x));
     return result;
 }
+
+
+/*
+void GameOfLife::drawWorld(byte world_param[]){
+    for (int i = 0; i < SIZE_X; i++) {
+        for (int j = 0; j < SIZE_Y; j++) {
+            if(checkCell(i, j, world)) {
+                drawPixel(i,j);
+            }
+        }
+    }
+}
+*/
